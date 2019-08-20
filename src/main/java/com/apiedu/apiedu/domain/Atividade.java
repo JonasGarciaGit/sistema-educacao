@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
 public class Atividade {
 
 	private Integer id;
@@ -12,7 +16,12 @@ public class Atividade {
 	private Date inicio;
 	private Date termino;
 	
+	@ManyToMany(mappedBy = "atividades")
 	List<Aluno> aluno = new ArrayList<Aluno>();
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "professor_id")
 	private Professor professor;
 	
 	public Atividade() {

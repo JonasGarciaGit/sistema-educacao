@@ -3,6 +3,10 @@ package com.apiedu.apiedu.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 public class Curso {
 
 	private Integer id;
@@ -10,8 +14,11 @@ public class Curso {
 	private String descricao;
 	private Float duracao;
 	
+	@OneToMany(mappedBy = "curso")
 	private List<Aluno> alunos = new ArrayList<>();
 	
+	@OneToOne
+	@JoinColumn(name = "professor_id")
 	private Professor professor;
 	
 	public Curso() {

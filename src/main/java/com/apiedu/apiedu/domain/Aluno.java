@@ -3,18 +3,36 @@ package com.apiedu.apiedu.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Aluno {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+		
 	private String nome;
 	private Integer idade;
 	private String email;
 	private String telefone;
 	private String endereco;
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "curso_id")
 	private Curso curso;
 	
+	@ManyToMany 
+	@JoinTable(name = "ALUNO_ATIVIDADES",
+	joinColumns = @JoinColumn(name = "aluno_id"),
+	inverseJoinColumns = @JoinColumn(name= "atividade_id"))
 	private List<Atividade> atividades = new ArrayList<>();
 	
 	

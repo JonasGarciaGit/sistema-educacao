@@ -3,6 +3,9 @@ package com.apiedu.apiedu.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 public class Professor {
 
 	private Integer id;
@@ -11,7 +14,10 @@ public class Professor {
 	private String telefone;
 	private String endereco;
 	
+	@OneToMany(mappedBy = "professor")
 	List<Atividade> atv = new ArrayList<Atividade>();
+	
+	@OneToOne(mappedBy = "professor")
 	private Curso curso;
 	
 	public Professor() {
