@@ -1,7 +1,6 @@
 package com.apiedu.apiedu.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -35,7 +34,7 @@ public class Aluno implements Serializable{
 	@JoinTable(name = "ALUNO_ATIVIDADES",
 	joinColumns = @JoinColumn(name = "aluno_id"),
 	inverseJoinColumns = @JoinColumn(name= "atividade_id"))
-	private List<Atividade> atividades = new ArrayList<>();
+	private List<Atividade> atividades;
 	
 	
 	public Aluno() {

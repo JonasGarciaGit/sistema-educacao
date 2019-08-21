@@ -28,8 +28,7 @@ public class Atividade implements Serializable{
 	private Date termino;
 	
 	@ManyToMany(mappedBy = "atividades")
-	List<Aluno> aluno = new ArrayList<Aluno>();
-	
+	private List<Aluno> aluno;	
 	
 	@ManyToOne
 	@JoinColumn(name = "professor_id")
