@@ -15,29 +15,29 @@ import com.apiedu.apiedu.domain.Curso;
 import com.apiedu.apiedu.services.CursoService;
 
 @RestController
-@RequestMapping(value = "/cursos")
+@RequestMapping(value = "/sistema-edu")
 public class CursoController {
 
 	@Autowired
 	public CursoService service;
 	
 	
-	@GetMapping(value = "/buscar")
+	@GetMapping(value = "/curso")
 	public List<Curso> find() {
 		return service.buscar();
 	}
 	
-	@PostMapping(value = "/inserir")
+	@PostMapping(value = "/curso")
 	public void inserirCurso(Curso curso) {		
 		service.inserir(curso);
 	}
 	
-	@DeleteMapping(value = "/deletar/{id}")
+	@DeleteMapping(value = "/curso/{id}")
 	public void deletarCurso(@PathVariable Integer id) {
 		service.deletarPeloId(id);
 	}
 	
-	@PutMapping(value = "/atualizar")
+	@PutMapping(value = "/curso")
 	public void atualizarCurso(Curso curso) {
 		service.atualizar(curso);
 	}

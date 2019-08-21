@@ -32,6 +32,7 @@ public class Atividade implements Serializable{
 	
 	@ManyToMany( mappedBy = "atividades")
 	private List<Aluno> aluno = new ArrayList<>();
+
 	
 	@JsonBackReference
 	@ManyToOne

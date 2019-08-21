@@ -43,6 +43,7 @@ public class Aluno implements Serializable{
 	inverseJoinColumns = @JoinColumn(name= "atividade_id")
 	) 
 	private List<Atividade> atividades = new ArrayList<>(); 
+
 	
 	
 	public Aluno() {

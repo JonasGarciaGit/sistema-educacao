@@ -15,29 +15,29 @@ import com.apiedu.apiedu.domain.Aluno;
 import com.apiedu.apiedu.services.AlunoService;
 
 @RestController
-@RequestMapping(value = "/alunos")
+@RequestMapping(value = "/sistema-edu")
 public class AlunoController {
 
 	@Autowired
 	public AlunoService service;
 	
 	
-	@GetMapping(value = "/buscar")
+	@GetMapping(value = "/aluno")
 	public List<Aluno> find() {
-		return service.buscar();
+		return service.buscarAlunos();
 	}
 	
-	@PostMapping(value = "/inserir")
+	@PostMapping(value = "/aluno")
 	public void inserirAluno(Aluno aluno) {		
 		service.inserir(aluno);
 	}
 	
-	@DeleteMapping(value = "/deletar/{id}")
+	@DeleteMapping(value = "/aluno/{id}")
 	public void deletarAluno(@PathVariable Integer id) {
 		service.deletarPeloId(id);
 	}
 	
-	@PutMapping(value = "/atualizar")
+	@PutMapping(value = "/aluno")
 	public void atualizarAluno(Aluno aluno) {
 		service.atualizar(aluno);
 	}

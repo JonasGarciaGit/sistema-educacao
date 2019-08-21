@@ -13,10 +13,7 @@ public class AlunoService {
 
 	@Autowired
 	private AlunoRepository repo;
-	
-	public List<Aluno> buscar() {
-		return repo.findAll();
-	}
+
 	
 	public void inserir(Aluno aluno) {
 		repo.save(aluno);
@@ -28,5 +25,9 @@ public class AlunoService {
 	
 	public void atualizar(Aluno aluno) {
 			repo.save(aluno);
+	}
+
+	public List<Aluno> buscarAlunos(){
+		return repo.findAll();
 	}
 }

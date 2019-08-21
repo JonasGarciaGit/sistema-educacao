@@ -8,4 +8,5 @@ import com.apiedu.apiedu.domain.Professor;
 @Repository
 public interface ProfessorRepository extends JpaRepository<Professor, Integer> {
 
+
 }
