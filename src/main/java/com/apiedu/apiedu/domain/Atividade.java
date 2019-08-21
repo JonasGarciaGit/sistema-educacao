@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Atividade implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -27,10 +29,11 @@ public class Atividade implements Serializable{
 	private Date inicio;
 	private Date termino;
 	
-	@ManyToMany(mappedBy = "atividades")
-	List<Aluno> aluno = new ArrayList<Aluno>();
 	
+	@ManyToMany( mappedBy = "atividades")
+	private List<Aluno> aluno = new ArrayList<>();
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "professor_id")
 	private Professor professor;

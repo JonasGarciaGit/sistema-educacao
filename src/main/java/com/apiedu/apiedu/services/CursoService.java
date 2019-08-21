@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.apiedu.apiedu.domain.Aluno;
-import com.apiedu.apiedu.repositories.AlunoRepository;
+import com.apiedu.apiedu.domain.Curso;
+import com.apiedu.apiedu.repositories.CursoRepository;
 
 @Service
-public class AlunoService {
+public class CursoService {
 
 	@Autowired
-	private AlunoRepository repo;
+	private CursoRepository repo;
 	
-	public List<Aluno> buscar() {
+	public List<Curso> buscar() {
 		return repo.findAll();
 	}
 	
-	public void inserir(Aluno aluno) {
-		repo.save(aluno);
+	public void inserir(Curso curso) {
+		repo.save(curso);
 	}
 	
 	public void deletarPeloId(Integer id) {
 		repo.deleteById(id);
 	}
 	
-	public void atualizar(Aluno aluno) {
-			repo.save(aluno);
+	public void atualizar(Curso curso) {
+			repo.save(curso);
 	}
 }
