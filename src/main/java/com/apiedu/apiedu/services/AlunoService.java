@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.apiedu.apiedu.domain.Aluno;
 import com.apiedu.apiedu.repositories.AlunoRepository;
@@ -15,7 +16,7 @@ public class AlunoService {
 	private AlunoRepository repo;
 
 	
-	public void inserir(Aluno aluno) {
+	public void inserir(@RequestBody Aluno aluno) {
 		repo.save(aluno);
 	}
 	

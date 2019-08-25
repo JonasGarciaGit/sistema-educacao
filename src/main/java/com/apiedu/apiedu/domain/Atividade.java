@@ -34,7 +34,7 @@ public class Atividade implements Serializable{
 	private List<Aluno> aluno = new ArrayList<>();
 
 	
-	@JsonBackReference
+	
 	@ManyToOne
 	@JoinColumn(name = "professor_id")
 	private Professor professor;

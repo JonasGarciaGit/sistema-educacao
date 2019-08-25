@@ -30,13 +30,14 @@ public class Aluno implements Serializable{
 	private String telefone;
 	private String endereco;
 	
+	
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
 	
 
 
-	@JsonManagedReference
+	
 	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable(name = "ALUNO_ATIVIDADES",
 	joinColumns = @JoinColumn(name = "aluno_id"),
@@ -168,6 +169,14 @@ public class Aluno implements Serializable{
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Aluno [id=" + id + ", nome=" + nome + ", idade=" + idade + ", email=" + email + ", telefone=" + telefone
+				+ ", endereco=" + endereco + ", curso=" + curso + ", atividades=" + atividades + "]";
+	}
+	
 	
 	
 	

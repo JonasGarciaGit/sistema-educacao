@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,8 +36,9 @@ public class AlunoController {
 	
 	@ApiOperation(value = "Insere um novo aluno no banco.")
 	@PostMapping(value = "/aluno")
-	public void inserirAluno(Aluno aluno) {		
+	public void inserirAluno(@RequestBody Aluno aluno) {		
 		service.inserir(aluno);
+		System.out.println(aluno);
 	}
 	
 	@ApiOperation(value = "Deleta um aluno do banco de dados.")

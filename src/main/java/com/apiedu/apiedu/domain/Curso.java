@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Curso implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -24,8 +26,10 @@ public class Curso implements Serializable{
 	private String descricao;
 	private Float duracao;
 	
+	
 	@OneToMany(mappedBy = "curso")
 	private List<Aluno> alunos = new ArrayList<>();
+	
 	
 	@OneToOne
 	@JoinColumn(name = "professor_id")

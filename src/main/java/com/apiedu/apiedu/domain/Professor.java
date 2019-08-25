@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Professor implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -24,8 +26,10 @@ public class Professor implements Serializable{
 	private String telefone;
 	private String endereco;
 	
+	
 	@OneToMany(mappedBy = "professor")
 	List<Atividade> atv = new ArrayList<Atividade>();
+	
 	
 	@OneToOne(mappedBy = "professor")
 	private Curso curso;
