@@ -35,7 +35,11 @@ public class CursoController {
 	
 	@ApiOperation(value = "Insere novos cursos no banco.")
 	@PostMapping(value = "/curso")
-	public void inserirCurso(Curso curso) {		
+	public void inserirCurso(Curso curso) {	
+		if(curso.getNome().equals("") || (curso.getDescricao().equals("") || curso.getDuracao() == null)) {
+			System.out.println("Dados insuficientes para a criação do curso.");
+		}
+		else
 		service.inserir(curso);
 	}
 	

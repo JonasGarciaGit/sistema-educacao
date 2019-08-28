@@ -27,26 +27,31 @@ public class AlunoController {
 
 	@Autowired
 	public AlunoService service;
-	
+
 	@ApiOperation(value = "Lista todos os alunos do banco.")
 	@GetMapping(value = "/aluno")
 	public List<Aluno> find() {
 		return service.buscarAlunos();
 	}
-	
+
 	@ApiOperation(value = "Insere um novo aluno no banco.")
 	@PostMapping(value = "/aluno")
-	public void inserirAluno(@RequestBody Aluno aluno) {		
-		service.inserir(aluno);
-		System.out.println(aluno);
+	public void inserirAluno(@RequestBody Aluno aluno) {
+		if ((aluno.getNome().equals("")) || (aluno.getEmail().equals("")) || (aluno.getIdade() == null)
+				|| (aluno.getEndereco().equals(""))) {
+			System.out.println("Aluno não inserido por falta de dados");
+		} else {
+			service.inserir(aluno);
+			System.out.println(aluno);
+		}
 	}
-	
+
 	@ApiOperation(value = "Deleta um aluno do banco de dados.")
 	@DeleteMapping(value = "/aluno/{id}")
 	public void deletarAluno(@PathVariable Integer id) {
 		service.deletarPeloId(id);
 	}
-	
+
 	@ApiOperation(value = "Atualiza um aluno ja existente.")
 	@PutMapping(value = "/aluno")
 	public void atualizarAluno(Aluno aluno) {

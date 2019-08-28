@@ -26,29 +26,33 @@ public class ProfessorController {
 
 	@Autowired
 	ProfessorService professorService;
-	
+
 	@ApiOperation(value = "Lista todos os professores do banco.")
 	@GetMapping(value = "/professor")
-	public List<Professor> buscarProfessor(){
+	public List<Professor> buscarProfessor() {
 		return professorService.buscarProfessores();
 	}
-	
+
 	@ApiOperation(value = "Insere um novo professor no banco.")
 	@PostMapping(value = "/professor")
 	public Professor inserirProfessor(@RequestBody Professor professor) {
-		return professorService.inserirProfessor(professor);
+		if ((professor.getNome().equals("")) || (professor.getEmail().equals("")) || (professor.getEndereco().equals(""))){
+			System.out.println("Professor não inserido por falta de dados");
+			return null;
+		} else
+			return professorService.inserirProfessor(professor);
 	}
-	
+
 	@ApiOperation(value = "Atualiza as informações de um professor.")
 	@PutMapping(value = "/professor")
 	public Professor atualizar(@RequestBody Professor professor) {
 		return professorService.atualizarProfessor(professor);
 	}
-	
+
 	@ApiOperation(value = "Deleta um professor do banco.")
 	@DeleteMapping(value = "/professor")
 	public void deletarProfessor(@RequestBody Professor professor) {
 		professorService.deletarProfessor(professor);
 	}
-	
+
 }

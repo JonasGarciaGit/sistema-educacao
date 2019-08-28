@@ -26,25 +26,29 @@ public class AtividadeController {
 
 	@Autowired
 	private AtividadeService service;
-	
+
 	@ApiOperation(value = "Lista todas as atividades do banco.")
 	@GetMapping(value = "/atividade")
 	public List<Atividade> buscarAtividade() {
 		return service.buscarAtividades();
 	}
-	
+
 	@ApiOperation(value = "Insere uma nova atividade.")
 	@PostMapping(value = "/atividade")
 	public Atividade inserirAtividade(@RequestBody Atividade atividade) {
-		return service.inserirAtividade(atividade);
+		if (atividade.getProfessor().getId() == null) {
+			 System.out.println("A atividade precisa de um professor para ser criada.");
+			 return null;
+		} else
+			return service.inserirAtividade(atividade);
 	}
-	
+
 	@ApiOperation(value = "Atualiza uma atividade.")
 	@PutMapping(value = "/atividade")
 	public Atividade atualizarAtividade(@RequestBody Atividade atividade) {
 		return service.atualizarAtividade(atividade);
 	}
-	
+
 	@ApiOperation(value = "Deleta uma atividade.")
 	@DeleteMapping(value = "/atividade")
 	public void deletar(@RequestBody Atividade atividade) {
