@@ -47,8 +47,8 @@ public class ProfessorController {
 	}
 	
 	@ApiOperation(value = "Deleta um professor do banco de dados.")
-	@DeleteMapping(value = "/aluno/{id}")
-	public void deletarAluno(@PathVariable Integer id) {
+	@DeleteMapping(value = "/professor/{id}")
+	public void deletarProfessor(@PathVariable Integer id) {
 		professorService.deletarProfessor(id);
 	}
 	
