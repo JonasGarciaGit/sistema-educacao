@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,10 +46,10 @@ public class ProfessorController {
 		return professorService.atualizarProfessor(professor);
 	}
 	
-	@ApiOperation(value = "Deleta um professor do banco.")
-	@DeleteMapping(value = "/professor")
-	public void deletarProfessor(@RequestBody Professor professor) {
-		professorService.deletarProfessor(professor);
+	@ApiOperation(value = "Deleta um professor do banco de dados.")
+	@DeleteMapping(value = "/aluno/{id}")
+	public void deletarAluno(@PathVariable Integer id) {
+		professorService.deletarProfessor(id);
 	}
 	
 }
