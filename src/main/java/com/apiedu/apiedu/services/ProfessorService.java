@@ -27,7 +27,7 @@ public class ProfessorService {
 			return repoProfessor.save(professor);
 	}
 	
-	public void deletarProfessor(@RequestBody Professor professor) {
-		repoProfessor.delete(professor);
+	public void deletarProfessor(Integer id) {
+		repoProfessor.deleteById(id);
 	}
 }
