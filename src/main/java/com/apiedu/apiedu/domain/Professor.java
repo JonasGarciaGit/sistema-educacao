@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Professor implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +24,8 @@ public class Professor implements Serializable {
 	private String CPF;
 	private String telefone;
 	private String endereco;
+	private String login;
+	private String senha;
 
 	@OneToMany(mappedBy = "professor")
 	List<Atividade> atv = new ArrayList<Atividade>();
@@ -36,7 +36,7 @@ public class Professor implements Serializable {
 	public Professor() {
 	}
 
-	public Professor(Integer id, String nome, String CPF, String email, String telefone, String endereco, Curso curso) {
+	public Professor(Integer id, String nome, String CPF, String email, String telefone, String endereco, Curso curso, String login, String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.CPF = CPF;
@@ -44,6 +44,8 @@ public class Professor implements Serializable {
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.curso = curso;
+		this.login = login;
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -100,6 +102,22 @@ public class Professor implements Serializable {
 
 	public void setCPF(String cPF) {
 		CPF = cPF;
+	}
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override

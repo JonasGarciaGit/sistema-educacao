@@ -14,8 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Aluno implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -29,6 +27,8 @@ public class Aluno implements Serializable{
 	private String email;
 	private String telefone;
 	private String endereco;
+	private String login;
+	private String senha;
 	
 	
 	@ManyToOne
@@ -52,7 +52,7 @@ public class Aluno implements Serializable{
 	}
 
 
-	public Aluno(String nome, String email, Integer idade, Integer id, String telefone, String endereco, Curso curso) {
+	public Aluno(String nome, String email, Integer idade, Integer id, String telefone, String endereco, Curso curso, String login, String senha) {
 		super();
 		this.nome = nome;
 		this.email = email;
@@ -61,6 +61,8 @@ public class Aluno implements Serializable{
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.curso = curso;
+		this.login = login;
+		this.senha = senha;
 	}
 
 
@@ -141,6 +143,25 @@ public class Aluno implements Serializable{
 
 	public void setAtividades(List<Atividade> atividades) {
 		this.atividades = atividades;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 
