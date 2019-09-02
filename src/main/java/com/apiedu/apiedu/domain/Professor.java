@@ -14,32 +14,32 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Professor implements Serializable{
+public class Professor implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String nome;
 	private String email;
+	private String CPF;
 	private String telefone;
 	private String endereco;
-	
-	
+
 	@OneToMany(mappedBy = "professor")
 	List<Atividade> atv = new ArrayList<Atividade>();
-	
-	
+
 	@OneToOne(mappedBy = "professor")
 	private Curso curso;
-	
+
 	public Professor() {
 	}
 
-	public Professor(Integer id, String nome, String email, String telefone, String endereco, Curso curso) {
+	public Professor(Integer id, String nome, String CPF, String email, String telefone, String endereco, Curso curso) {
 		this.id = id;
 		this.nome = nome;
+		this.CPF = CPF;
 		this.email = email;
 		this.telefone = telefone;
 		this.endereco = endereco;
@@ -86,7 +86,6 @@ public class Professor implements Serializable{
 		this.endereco = endereco;
 	}
 
-
 	public Curso getCurso() {
 		return curso;
 	}
@@ -94,11 +93,19 @@ public class Professor implements Serializable{
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-	
+
+	public String getCPF() {
+		return CPF;
+	}
+
+	public void setCPF(String cPF) {
+		CPF = cPF;
+	}
+
 	@Override
 	public String toString() {
-		return "Professor [id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", endereco="
-				+ endereco + ", at=" + atv + "]";
+		return "Professor [id=" + id + ", nome=" + nome + ", email=" + email + ", CPF=" + CPF + ", telefone=" + telefone
+				+ ", endereco=" + endereco + ", curso=" + curso + "]";
 	}
 
 	@Override
@@ -125,7 +132,5 @@ public class Professor implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 
 }
