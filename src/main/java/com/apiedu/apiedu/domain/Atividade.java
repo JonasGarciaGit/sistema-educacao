@@ -21,8 +21,7 @@ public class Atividade implements Serializable{
 	
 	private String nome;
 	private String descricao;
-	private Date inicio;
-	private Date termino;
+	private Date prazoFinal;
 	private String caminho;
 	
 	@ManyToOne
@@ -37,12 +36,11 @@ public class Atividade implements Serializable{
 	public Atividade() {
 	}
 
-	public Atividade(Integer id, String nome, String descricao, Date inicio, Date termino, Professor professor) {
+	public Atividade(Integer id, String nome, String descricao, Date prazoFinal, Professor professor) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
-		this.inicio = inicio;
-		this.termino = termino;
+		this.prazoFinal = prazoFinal;
 		this.professor = professor;
 	}
 
@@ -70,21 +68,14 @@ public class Atividade implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Date getInicio() {
-		return inicio;
+	public Date getprazoFinal() {
+		return prazoFinal;
 	}
 
-	public void setInicio(Date inicio) {
-		this.inicio = inicio;
+	public void setprazoFinal(Date prazoFinal) {
+		this.prazoFinal = prazoFinal;
 	}
 
-	public Date getTermino() {
-		return termino;
-	}
-
-	public void setTermino(Date termino) {
-		this.termino = termino;
-	}
 
 	public Professor getProfessor() {
 		return professor;
@@ -93,11 +84,20 @@ public class Atividade implements Serializable{
 	public void setProfessor(Professor professor) {
 		this.professor = professor;
 	}
+	
+
+	public String getCaminho() {
+		return caminho;
+	}
+
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
+	}
 
 	@Override
 	public String toString() {
-		return "Atividade [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", inicio=" + inicio
-				+ ", termino=" + termino + ", professor=" + professor + "]";
+		return "Atividade [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", prazoFinal=" + prazoFinal
+				+ ", termino=" + ", professor=" + professor + "]";
 	}
 
 	@Override
