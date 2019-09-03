@@ -28,6 +28,8 @@ public class Curso implements Serializable{
 	@OneToMany(mappedBy = "curso")
 	private List<Aluno> alunos = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "curso")
+	private List<Atividade> atividades = new ArrayList<>(); 
 	
 	@OneToOne
 	@JoinColumn(name = "professor_id")
@@ -117,6 +119,14 @@ public class Curso implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public List<Atividade> getAtividades() {
+		return atividades;
+	}
+
+	public void setAtividades(List<Atividade> atividades) {
+		this.atividades = atividades;
 	}
 	
 	

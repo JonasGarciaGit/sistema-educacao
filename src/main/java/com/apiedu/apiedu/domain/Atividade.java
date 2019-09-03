@@ -1,16 +1,13 @@
 package com.apiedu.apiedu.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -27,10 +24,9 @@ public class Atividade implements Serializable{
 	private Date inicio;
 	private Date termino;
 	
-	
-	@ManyToMany( mappedBy = "atividades")
-	private List<Aluno> aluno = new ArrayList<>();
-
+	@ManyToOne
+	@JoinColumn(name = "curso_id")
+	private Curso curso;
 	
 	
 	@ManyToOne
@@ -126,6 +122,14 @@ public class Atividade implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 	
 	

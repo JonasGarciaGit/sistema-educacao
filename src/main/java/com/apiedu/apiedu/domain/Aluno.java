@@ -34,18 +34,7 @@ public class Aluno implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
-	
-
-
-	
-	@ManyToMany (fetch = FetchType.EAGER)
-	@JoinTable(name = "ALUNO_ATIVIDADES",
-	joinColumns = @JoinColumn(name = "aluno_id"),
-	inverseJoinColumns = @JoinColumn(name= "atividade_id")
-	) 
-	private List<Atividade> atividades = new ArrayList<>(); 
-
-	
+		
 	
 	public Aluno() {
 		
@@ -136,15 +125,6 @@ public class Aluno implements Serializable{
 	}
 
 
-	public List<Atividade> getAtividades() {
-		return atividades;
-	}
-
-
-	public void setAtividades(List<Atividade> atividades) {
-		this.atividades = atividades;
-	}
-
 	public String getLogin() {
 		return login;
 	}
@@ -195,7 +175,7 @@ public class Aluno implements Serializable{
 	@Override
 	public String toString() {
 		return "Aluno [id=" + id + ", nome=" + nome + ", idade=" + idade + ", email=" + email + ", telefone=" + telefone
-				+ ", endereco=" + endereco + ", curso=" + curso + ", atividades=" + atividades + "]";
+				+ ", endereco=" + endereco + ", curso=" + curso + "]";
 	}
 	
 	
