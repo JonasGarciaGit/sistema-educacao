@@ -36,13 +36,20 @@ public class Atividade implements Serializable{
 	public Atividade() {
 	}
 
-	public Atividade(Integer id, String nome, String descricao, Date prazoFinal, Professor professor) {
+	
+	public Atividade(Integer id, String nome, String descricao, Date prazoFinal, String caminho, Curso curso,
+			Professor professor) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.prazoFinal = prazoFinal;
+		this.caminho = caminho;
+		this.curso = curso;
 		this.professor = professor;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -94,10 +101,12 @@ public class Atividade implements Serializable{
 		this.caminho = caminho;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Atividade [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", prazoFinal=" + prazoFinal
-				+ ", termino=" + ", professor=" + professor + "]";
+				+ ", caminho=" + caminho + ", curso=" + curso + ", professor=" + professor + "]";
 	}
 
 	@Override

@@ -36,10 +36,7 @@ public class AtividadeController {
 	@ApiOperation(value = "Insere uma nova atividade.")
 	@PostMapping(value = "/atividade")
 	public Atividade inserirAtividade(@RequestBody Atividade atividade) {
-		if (atividade.getProfessor().getId() == null) {
-			 System.out.println("A atividade precisa de um professor para ser criada.");
-			 return null;
-		} else
+			System.out.println(atividade);
 			return service.inserirAtividade(atividade);
 	}
 
