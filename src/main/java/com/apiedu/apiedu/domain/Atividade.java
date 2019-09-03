@@ -23,6 +23,7 @@ public class Atividade implements Serializable{
 	private String descricao;
 	private Date inicio;
 	private Date termino;
+	private String caminho;
 	
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
