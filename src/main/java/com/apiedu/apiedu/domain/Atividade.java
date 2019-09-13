@@ -132,6 +132,14 @@ public class Atividade implements Serializable{
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
+
+	public String getCaminho() {
+		return caminho;
+	}
+
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
+	}
 	
 	
 }
