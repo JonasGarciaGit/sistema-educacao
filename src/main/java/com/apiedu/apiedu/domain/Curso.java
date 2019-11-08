@@ -128,6 +128,12 @@ public class Curso implements Serializable{
 	public void setAtividades(List<Atividade> atividades) {
 		this.atividades = atividades;
 	}
+
+	@Override
+	public String toString() {
+		return "Curso [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", duracao=" + duracao + ", alunos="
+				+ alunos + ", atividades=" + atividades + ", professor=" + professor + "]";
+	}
 	
 	
 	
