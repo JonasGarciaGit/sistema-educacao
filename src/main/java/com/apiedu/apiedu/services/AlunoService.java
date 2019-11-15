@@ -8,12 +8,10 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.apiedu.apiedu.domain.Aluno;
+import com.apiedu.apiedu.domain.Curso;
 import com.apiedu.apiedu.repositories.AlunoRepository;
-
-import net.bytebuddy.build.Plugin.Engine.Source.Empty;
 
 
 @Service
@@ -21,16 +19,20 @@ public class AlunoService {
 
 	@Autowired
 	private AlunoRepository repo;
+	
+	Curso curso = new Curso();
 
-	public JSONObject inserir(@RequestBody Aluno aluno) throws JSONException {
+	public JSONObject inserir(Aluno aluno) throws JSONException {
 		JSONObject responseJson = new JSONObject();
 		try {
 			if (StringUtils.isEmpty(aluno.getNome()) || StringUtils.isEmpty(aluno.getEmail()) || StringUtils.isEmpty(aluno.getEndereco())
-					|| StringUtils.isEmpty(aluno.getTelefone())|| aluno.getIdade() == 0) {
+					|| StringUtils.isEmpty(aluno.getTelefone())|| aluno.getIdade() == 0 || aluno.getCursoId() == null) {
 				responseJson.put("code", "422");
 				responseJson.put("description", "Unprocessable Entity");
 				return responseJson;
 			} else {
+				curso = repo.buscarCurso(aluno.getCursoId() + 1);
+				aluno.setCurso(curso);
 				repo.save(aluno);
 				responseJson.put("code", "200");
 				responseJson.put("description", "OK");
@@ -39,6 +41,7 @@ public class AlunoService {
 				responseJson.put("endereco", aluno.getEndereco());
 				responseJson.put("telefone", aluno.getTelefone());
 				responseJson.put("idade", aluno.getIdade());
+				responseJson.put("cursoId", curso.getId());
 				return responseJson;
 			}
 		} catch (Exception e) {

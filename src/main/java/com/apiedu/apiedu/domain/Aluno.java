@@ -14,6 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 public class Aluno implements Serializable {
@@ -37,6 +41,17 @@ public class Aluno implements Serializable {
 	private String login;
 	@Column(name = "senha")
 	private String senha;
+	
+	@Transient
+	private Integer cursoId;
+	
+	public Integer getCursoId() {
+		return cursoId;
+	}
+
+	public void setCursoId(Integer cursoId) {
+		this.cursoId = cursoId;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "curso_id")
@@ -47,7 +62,7 @@ public class Aluno implements Serializable {
 	}
 
 	public Aluno(String nome, String email, Integer idade, Integer id, String telefone, String endereco, Curso curso,
-			String login, String senha) {
+			String login, String senha, Integer cursoId) {
 		super();
 		this.nome = nome;
 		this.email = email;
@@ -58,6 +73,7 @@ public class Aluno implements Serializable {
 		this.curso = curso;
 		this.login = login;
 		this.senha = senha;
+		this.cursoId = cursoId;
 	}
 
 	public String getNome() {
