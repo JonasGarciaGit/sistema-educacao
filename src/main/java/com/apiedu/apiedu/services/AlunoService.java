@@ -109,10 +109,19 @@ public class AlunoService {
 	public JSONObject buscarAlunos() {
 		JSONArray resultJson = new JSONArray();
 		JSONObject responseJson = new JSONObject();
+		JSONObject temp = new JSONObject();
 		try {
 			List<Aluno> alunos = repo.buscarAlunos();
 			for (Aluno aluno : alunos) {
-				resultJson.put(new JSONObject(aluno));
+				temp.put("id", aluno.getId());
+				temp.put("nome", aluno.getNome());
+				temp.put("email", aluno.getEmail());
+				temp.put("endereco", aluno.getEndereco());
+				temp.put("telefone", aluno.getTelefone());
+				temp.put("idade", aluno.getIdade());
+				temp.put("cursoId", aluno.getCurso().getId());
+				resultJson.put(temp);
+				temp = new JSONObject();
 			}
 			responseJson.put("Alunos", resultJson);
 

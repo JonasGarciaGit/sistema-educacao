@@ -141,10 +141,26 @@ public class Aluno implements Serializable {
 	}
 
 	@Override
+	public String toString() {
+		return "Aluno [id=" + id + ", nome=" + nome + ", idade=" + idade + ", email=" + email + ", telefone=" + telefone
+				+ ", endereco=" + endereco + ", login=" + login + ", senha=" + senha + ", cursoId=" + cursoId
+				+ ", curso=" + curso + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((curso == null) ? 0 : curso.hashCode());
+		result = prime * result + ((cursoId == null) ? 0 : cursoId.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((idade == null) ? 0 : idade.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
 
@@ -157,18 +173,59 @@ public class Aluno implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
+		if (curso == null) {
+			if (other.curso != null)
+				return false;
+		} else if (!curso.equals(other.curso))
+			return false;
+		if (cursoId == null) {
+			if (other.cursoId != null)
+				return false;
+		} else if (!cursoId.equals(other.cursoId))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (endereco == null) {
+			if (other.endereco != null)
+				return false;
+		} else if (!endereco.equals(other.endereco))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (idade == null) {
+			if (other.idade != null)
+				return false;
+		} else if (!idade.equals(other.idade))
+			return false;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
+			return false;
+		if (telefone == null) {
+			if (other.telefone != null)
+				return false;
+		} else if (!telefone.equals(other.telefone))
+			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Aluno [id=" + id + ", nome=" + nome + ", idade=" + idade + ", email=" + email + ", telefone=" + telefone
-				+ ", endereco=" + endereco + ", curso=" + curso + "]";
-	}
+
 
 }
