@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,22 +15,29 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Professor implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7911615624072530029L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	@Column(name = "nome")
 	private String nome;
+	@Column(name = "email")
 	private String email;
-	private String CPF;
+	@Column(name = "cpf")
+	private String cpf;
+	@Column(name = "telefone")
 	private String telefone;
+	@Column(name = "endereco")
 	private String endereco;
+	@Column(name = "login")
 	private String login;
+	@Column(name = "senha")
 	private String senha;
-
-	@OneToMany(mappedBy = "professor")
-	List<Atividade> atv = new ArrayList<Atividade>();
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	List<Atividade> atividade = new ArrayList<Atividade>();
 
 	@OneToOne(mappedBy = "professor")
 	private Curso curso;
@@ -36,10 +45,10 @@ public class Professor implements Serializable {
 	public Professor() {
 	}
 
-	public Professor(Integer id, String nome, String CPF, String email, String telefone, String endereco, Curso curso, String login, String senha) {
+	public Professor(Integer id, String nome, String email, String cpf, String telefone, String endereco, Curso curso, String login, String senha) {
 		this.id = id;
 		this.nome = nome;
-		this.CPF = CPF;
+		this.cpf = cpf;
 		this.email = email;
 		this.telefone = telefone;
 		this.endereco = endereco;
@@ -97,11 +106,11 @@ public class Professor implements Serializable {
 	}
 
 	public String getCPF() {
-		return CPF;
+		return cpf;
 	}
 
-	public void setCPF(String cPF) {
-		CPF = cPF;
+	public void setCPF(String cpf) {
+		this.cpf = cpf;
 	}
 	
 	public String getLogin() {
@@ -119,36 +128,20 @@ public class Professor implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+
+	public List<Atividade> getAtividade() {
+		return atividade;
+	}
+
+	public void setAtividade(List<Atividade> atividade) {
+		this.atividade = atividade;
+	}
 
 	@Override
 	public String toString() {
-		return "Professor [id=" + id + ", nome=" + nome + ", email=" + email + ", CPF=" + CPF + ", telefone=" + telefone
+		return "Professor [id=" + id + ", nome=" + nome + ", email=" + email + ", cpf=" + cpf + ", telefone=" + telefone
 				+ ", endereco=" + endereco + ", curso=" + curso + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Professor other = (Professor) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 
 }

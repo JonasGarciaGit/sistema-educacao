@@ -10,10 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Atividade implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -5587071203355421158L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -48,8 +51,6 @@ public class Atividade implements Serializable{
 		this.curso = curso;
 		this.professor = professor;
 	}
-
-
 
 	public Integer getId() {
 		return id;
@@ -97,31 +98,6 @@ public class Atividade implements Serializable{
 	public String toString() {
 		return "Atividade [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", prazoFinal=" + prazoFinal
 				+ ", caminho=" + caminho + ", curso=" + curso + ", professor=" + professor + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Atividade other = (Atividade) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
 	}
 
 	public Curso getCurso() {
