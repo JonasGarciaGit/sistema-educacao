@@ -1,6 +1,8 @@
 package com.apiedu.apiedu.services;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +16,7 @@ import com.apiedu.apiedu.domain.Curso;
 import com.apiedu.apiedu.repositories.AlunoRepository;
 
 
+
 @Service
 public class AlunoService {
 
@@ -21,6 +24,11 @@ public class AlunoService {
 	private AlunoRepository repo;
 	
 	Curso curso = new Curso();
+	
+	Calendar data = Calendar.getInstance();
+	Integer dateYear = data.get(Calendar.YEAR);
+	
+
 
 	public JSONObject inserir(Aluno aluno) throws JSONException {
 		JSONObject responseJson = new JSONObject();
@@ -32,6 +40,9 @@ public class AlunoService {
 				return responseJson;
 			} else {
 				curso = repo.buscarCurso(aluno.getCursoId() + 1);
+				Integer senha = new Random().nextInt(5000);
+				aluno.setLogin(aluno.getNome() + "@" + dateYear.toString());
+				aluno.setSenha(senha.toString());
 				aluno.setCurso(curso);
 				repo.save(aluno);
 				responseJson.put("code", "200");
@@ -56,7 +67,7 @@ public class AlunoService {
 	public JSONObject deletarPeloId(Integer id) throws JSONException {
 		JSONObject responseJson = new JSONObject();
 		try {
-			if(repo.findById(id).isEmpty()) {
+			if(repo.findById(id).empty() != null) {
 				responseJson.put("code", "404");
 				responseJson.put("description", "NOT_FOUND");
 				responseJson.put("erro","id inválido");
@@ -87,6 +98,11 @@ public class AlunoService {
 				responseJson.put("description", "Unprocessable Entity");
 				return responseJson;
 			} else {
+				curso = repo.buscarCurso(aluno.getCursoId() + 1);
+				Integer senha = new Random().nextInt(5000);
+				aluno.setLogin(aluno.getNome() + "@" + dateYear.toString());
+				aluno.setSenha(senha.toString());
+				aluno.setCurso(curso);
 				repo.save(aluno);
 				responseJson.put("code", "200");
 				responseJson.put("description", "OK");
@@ -109,19 +125,21 @@ public class AlunoService {
 	public JSONObject buscarAlunos() {
 		JSONArray resultJson = new JSONArray();
 		JSONObject responseJson = new JSONObject();
-		JSONObject temp = new JSONObject();
+		JSONObject temporaryJson = new JSONObject();
 		try {
-			List<Aluno> alunos = repo.buscarAlunos();
+			List<Aluno> alunos = repo.findAll();
 			for (Aluno aluno : alunos) {
-				temp.put("id", aluno.getId());
-				temp.put("nome", aluno.getNome());
-				temp.put("email", aluno.getEmail());
-				temp.put("endereco", aluno.getEndereco());
-				temp.put("telefone", aluno.getTelefone());
-				temp.put("idade", aluno.getIdade());
-				temp.put("cursoId", aluno.getCurso().getId());
-				resultJson.put(temp);
-				temp = new JSONObject();
+				temporaryJson.put("id", aluno.getId());
+				temporaryJson.put("nome", aluno.getNome());
+				temporaryJson.put("email", aluno.getEmail());
+				temporaryJson.put("endereco", aluno.getEndereco());
+				temporaryJson.put("telefone", aluno.getTelefone());
+				temporaryJson.put("idade", aluno.getIdade());
+				temporaryJson.put("cursoId", aluno.getCurso().getId());
+				temporaryJson.put("login", aluno.getLogin());
+				temporaryJson.put("senha", aluno.getSenha());
+				resultJson.put(temporaryJson);
+				temporaryJson = new JSONObject();
 			}
 			responseJson.put("Alunos", resultJson);
 

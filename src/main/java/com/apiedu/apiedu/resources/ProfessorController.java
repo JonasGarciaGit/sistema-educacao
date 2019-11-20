@@ -38,14 +38,13 @@ public class ProfessorController {
 		JSONObject buscaProfessores = new JSONObject();
 		try {
 			buscaProfessores = professorService.buscarProfessores();
-			return new ResponseEntity<String>(buscaProfessores.toString(),HttpStatus.OK);
-			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 			buscaProfessores.put("code","1000");
 			buscaProfessores.put("description", "TIME OUT - INTERNAL SERVER ERROR");
+			return new ResponseEntity<String>(buscaProfessores.toString(),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<String>(buscaProfessores.toString(),HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>(buscaProfessores.toString(),HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Insere um novo professor no banco.")

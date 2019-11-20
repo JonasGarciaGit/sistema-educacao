@@ -25,8 +25,6 @@ public class Professor implements Serializable {
 	private String nome;
 	@Column(name = "email")
 	private String email;
-	@Column(name = "cpf")
-	private String cpf;
 	@Column(name = "telefone")
 	private String telefone;
 	@Column(name = "endereco")
@@ -35,24 +33,23 @@ public class Professor implements Serializable {
 	private String login;
 	@Column(name = "senha")
 	private String senha;
+	@Column(name = "cpf")
+	private String cpf;
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	List<Atividade> atividade = new ArrayList<Atividade>();
 
-	@OneToOne(mappedBy = "professor")
-	private Curso curso;
 
 	public Professor() {
 	}
 
-	public Professor(Integer id, String nome, String email, String cpf, String telefone, String endereco, Curso curso, String login, String senha) {
+	public Professor(Integer id, String nome, String email, String telefone,String cpf, String endereco, String login, String senha) {
 		this.id = id;
 		this.nome = nome;
-		this.cpf = cpf;
 		this.email = email;
 		this.telefone = telefone;
+		this.cpf = cpf;
 		this.endereco = endereco;
-		this.curso = curso;
 		this.login = login;
 		this.senha = senha;
 	}
@@ -63,6 +60,15 @@ public class Professor implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getNome() {
@@ -97,21 +103,6 @@ public class Professor implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public Curso getCurso() {
-		return curso;
-	}
-
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
-
-	public String getCPF() {
-		return cpf;
-	}
-
-	public void setCPF(String cpf) {
-		this.cpf = cpf;
-	}
 	
 	public String getLogin() {
 		return login;
@@ -140,8 +131,8 @@ public class Professor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Professor [id=" + id + ", nome=" + nome + ", email=" + email + ", cpf=" + cpf + ", telefone=" + telefone
-				+ ", endereco=" + endereco + ", curso=" + curso + "]";
+		return "Professor [id=" + id + ", nome=" + nome + ", email=" + email + "telefone=" + telefone
+				+ ", endereco=" + endereco + "]";
 	}
 
 }

@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Curso implements Serializable{
@@ -23,7 +20,7 @@ public class Curso implements Serializable{
 	
 	private String nome;
 	private String descricao;
-	private Float duracao;
+	private Integer duracao;
 	
 	
 	@OneToMany(mappedBy = "curso")
@@ -32,21 +29,17 @@ public class Curso implements Serializable{
 	@OneToMany(mappedBy = "curso")
 	private List<Atividade> atividades = new ArrayList<>(); 
 	
-	@OneToOne
-	@JoinColumn(name = "professor_id")
-	private Professor professor;
 	
 	public Curso() {
 		
 	}
 
-	public Curso(Integer id, String nome, String descricao, Float duracao, Professor professor) {
+	public Curso(Integer id, String nome, String descricao, Integer duracao) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.duracao = duracao;
-		this.professor = professor;
 	}
 
 	public Integer getId() {
@@ -73,11 +66,11 @@ public class Curso implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Float getDuracao() {
+	public Integer getDuracao() {
 		return duracao;
 	}
 
-	public void setDuracao(Float duracao) {
+	public void setDuracao(Integer duracao) {
 		this.duracao = duracao;
 	}
 
@@ -89,13 +82,6 @@ public class Curso implements Serializable{
 		this.alunos = alunos;
 	}
 
-	public Professor getProfessor() {
-		return professor;
-	}
-
-	public void setProfessor(Professor professor) {
-		this.professor = professor;
-	}
 
 	@Override
 	public int hashCode() {
@@ -133,7 +119,7 @@ public class Curso implements Serializable{
 	@Override
 	public String toString() {
 		return "Curso [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", duracao=" + duracao + ", alunos="
-				+ alunos + ", atividades=" + atividades + ", professor=" + professor + "]";
+				+ alunos + ", atividades=" + atividades + "]";
 	}
 	
 	

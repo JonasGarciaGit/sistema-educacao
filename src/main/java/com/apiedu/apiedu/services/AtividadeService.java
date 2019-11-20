@@ -1,5 +1,6 @@
 package com.apiedu.apiedu.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.apiedu.apiedu.domain.Atividade;
+import com.apiedu.apiedu.domain.Curso;
 import com.apiedu.apiedu.repositories.AtividadeRepository;
 
 @Service
@@ -19,27 +21,66 @@ public class AtividadeService {
 	@Autowired
 	private AtividadeRepository repo;
 	
-	public JSONObject buscarAtividades() throws JSONException{
-		JSONObject responseObj = new JSONObject();
-		JSONArray responseArr = new JSONArray();
-	try {
-		List<Atividade> atividadeList = repo.findAll();
-		if(StringUtils.isEmpty(atividadeList)) {
-			responseObj.put("code", "404");
-			responseObj.put("description", "NOT_FOUND");
+	Curso curso = new Curso();
+	
+	public JSONObject buscarAtividades(){
+		JSONObject responseJson = new JSONObject();
+		List<Atividade> atividades = new ArrayList<Atividade>();
+		JSONObject temporaryAtv = new JSONObject();
+		JSONArray atvArrayJson = new JSONArray();
+		
+		try {
+			atividades = repo.buscarAtividades();
+			for(Atividade atv: atividades) {
+				
+				temporaryAtv.put("id", atv.getId());
+				temporaryAtv.put("descricao", atv.getDescricao());		
+				temporaryAtv.put("nome", atv.getNome());
+				temporaryAtv.put("cursoId", atv.getCurso().getId());
+				temporaryAtv.put("caminho", atv.getCaminho());
+				temporaryAtv.put("prazoFinal", atv.getprazoFinal());
+				temporaryAtv.put("uploadNome", atv.getUploadNome());
+				atvArrayJson.put(temporaryAtv);
+				temporaryAtv = new JSONObject();
+			}
+			
+			responseJson.put("atividades", atvArrayJson);
+			return responseJson;
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
 		}
-		for(Atividade atv : atividadeList) {
-			responseArr.put(new JSONObject(atv));
-		}
-		responseObj.put("Atividades", responseArr);
-		responseObj.put("code", "200");
-		responseObj.put("description", "OK");
-	}catch(Exception e) {
-		System.out.println("ERROR::" + e.getMessage());
-		responseObj.put("code", "1000");
-		responseObj.put("description", "INTERNAL SERVER ERROR");
+	return responseJson;
 	}
-	return responseObj;
+	
+	public JSONObject findAll(){
+		JSONObject responseJson = new JSONObject();
+		List<Atividade> atividades = new ArrayList<Atividade>();
+		JSONObject temporaryAtv = new JSONObject();
+		JSONArray atvArrayJson = new JSONArray();
+		
+		try {
+			atividades = repo.findAll();
+			for(Atividade atv: atividades) {
+				
+				temporaryAtv.put("id", atv.getId());
+				temporaryAtv.put("descricao", atv.getDescricao());		
+				temporaryAtv.put("nome", atv.getNome());
+				temporaryAtv.put("cursoId", atv.getCurso().getId());
+				temporaryAtv.put("caminho", atv.getCaminho());
+				temporaryAtv.put("prazoFinal", atv.getprazoFinal());
+				temporaryAtv.put("uploadNome", atv.getUploadNome());
+				atvArrayJson.put(temporaryAtv);
+				temporaryAtv = new JSONObject();
+			}
+			
+			responseJson.put("atividades", atvArrayJson);
+			return responseJson;
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	return responseJson;
 	}
 	
 	public JSONObject inserirAtividade(Atividade atv) throws JSONException {
@@ -48,13 +89,16 @@ public class AtividadeService {
 		if(StringUtils.isEmpty(atv.getNome()) || StringUtils.isEmpty(atv.getDescricao())) {
 			response.put("code", "422");
 			response.put("description", HttpStatus.UNPROCESSABLE_ENTITY);
-		}else {
+		}else {	
+			curso = repo.buscarCurso(atv.getCursoId());
+			atv.setCurso(curso);
 			repo.save(atv);
 			response.put("nome", atv.getNome());
 			response.put("descricao", atv.getDescricao());
-			response.put("data", atv.getprazoFinal());
+			response.put("data", atv.getprazoFinal().toString());
 			response.put("caminho", atv.getCaminho());
-			response.put("Curso", atv.getCurso());
+			response.put("uploadNome", atv.getUploadNome());
+			response.put("Curso", atv.getCurso().getId());
 			response.put("Professor", atv.getProfessor());
 		}
 	}catch(Exception e) {
@@ -77,6 +121,7 @@ public class AtividadeService {
 			response.put("descricao", atv.getDescricao());
 			response.put("data", atv.getprazoFinal());
 			response.put("caminho", atv.getCaminho());
+			response.put("uploadNome", atv.getUploadNome());
 			response.put("Curso", atv.getCurso());
 			response.put("Professor", atv.getProfessor());
 			response.put("code", "200");

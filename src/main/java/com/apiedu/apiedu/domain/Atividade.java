@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Atividade implements Serializable{
@@ -24,8 +26,12 @@ public class Atividade implements Serializable{
 	private String descricao;
 	private Date prazoFinal;
 	private String caminho;
+	private String uploadNome;
+	@Transient
+	private Integer cursoId;
+
 	
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "curso_id")
 	private Curso curso;
 	
@@ -38,7 +44,7 @@ public class Atividade implements Serializable{
 	}
 
 	
-	public Atividade(Integer id, String nome, String descricao, Date prazoFinal, String caminho, Curso curso,
+	public Atividade(Integer id, String nome, String descricao, Date prazoFinal, String caminho,String uploadNome, Curso curso,
 			Professor professor) {
 		super();
 		this.id = id;
@@ -48,7 +54,20 @@ public class Atividade implements Serializable{
 		this.caminho = caminho;
 		this.curso = curso;
 		this.professor = professor;
+		this.uploadNome = uploadNome;
 	}
+	
+	
+
+	public Integer getCursoId() {
+		return cursoId;
+	}
+
+
+	public void setCursoId(Integer cursoId) {
+		this.cursoId = cursoId;
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -91,11 +110,15 @@ public class Atividade implements Serializable{
 		this.professor = professor;
 	}
 	
+	
 
-	@Override
-	public String toString() {
-		return "Atividade [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", prazoFinal=" + prazoFinal
-				+ ", caminho=" + caminho + ", curso=" + curso + ", professor=" + professor + "]";
+	public String getUploadNome() {
+		return uploadNome;
+	}
+
+
+	public void setUploadNome(String uploadNome) {
+		this.uploadNome = uploadNome;
 	}
 
 	public Curso getCurso() {
@@ -112,6 +135,14 @@ public class Atividade implements Serializable{
 
 	public void setCaminho(String caminho) {
 		this.caminho = caminho;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Atividade [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", prazoFinal=" + prazoFinal
+				+ ", caminho=" + caminho + ", uploadNome=" + uploadNome + ", curso=" + curso + ", professor="
+				+ professor + "]";
 	}
 	
 	

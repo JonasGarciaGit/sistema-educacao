@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.apiedu.apiedu.domain.Atividade;
 import com.apiedu.apiedu.services.AtividadeService;
+import com.apiedu.apiedu.utils.Arquivos;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,22 +35,43 @@ public class AtividadeController {
 	@Autowired
 	private AtividadeService service;
 
+	@Autowired
+	private Arquivos arquivos;
+
 	@ApiOperation(value = "Lista todas as atividades do banco.")
 	@GetMapping(value = "/atividade", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody ResponseEntity<String> buscarAtividade() throws JSONException {
-		JSONObject buscaProfessores = new JSONObject();
+		JSONObject responseJson = new JSONObject();
 		try {
-			buscaProfessores = service.buscarAtividades();
-			return new ResponseEntity<String>(buscaProfessores.toString(),HttpStatus.OK);
-			
-		}catch(Exception e) {
+			responseJson = service.buscarAtividades();
+			responseJson.put("code", "200");
+			responseJson.put("description", "OK");
+			return new ResponseEntity<String>(responseJson.toString(), HttpStatus.OK);
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			buscaProfessores.put("code","1000");
-			buscaProfessores.put("description", "TIME OUT - INTERNAL SERVER ERROR");
+			responseJson.put("code", "1000");
+			responseJson.put("description","Internal Server error - Time out");
+			return new ResponseEntity<String>(responseJson.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<String>(buscaProfessores.toString(),HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@ApiOperation(value = "Lista todas as atividades do banco.")
+	@GetMapping(value = "/atividadeProfessor", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody ResponseEntity<String> findAll() throws JSONException {
+		JSONObject responseJson = new JSONObject();
+		try {
+			responseJson = service.findAll();
+			responseJson.put("code", "200");
+			responseJson.put("description", "OK");
+			return new ResponseEntity<String>(responseJson.toString(), HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			responseJson.put("code", "1000");
+			responseJson.put("description","Internal Server error - Time out");
+			return new ResponseEntity<String>(responseJson.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@ApiOperation(value = "Insere uma nova atividade.")
 	@PostMapping(value = "/atividade", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody ResponseEntity<String> inserirAtividade(@RequestBody Atividade atividade)
@@ -65,7 +89,7 @@ public class AtividadeController {
 	}
 
 	@ApiOperation(value = "Atualiza uma atividade.")
-	@PutMapping(value = "/atividade",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@PutMapping(value = "/atividade", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody ResponseEntity<String> atualizarAtividade(@RequestBody Atividade atividade)
 			throws JSONException {
 		JSONObject response = new JSONObject();
@@ -81,7 +105,7 @@ public class AtividadeController {
 	}
 
 	@ApiOperation(value = "Deleta uma atividade.")
-	@DeleteMapping(value = "/atividade/{id}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@DeleteMapping(value = "/atividadeProfessor/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public @ResponseBody ResponseEntity<String> deletar(@PathVariable Integer id) throws JSONException {
 		JSONObject response = new JSONObject();
 		try {
@@ -93,6 +117,11 @@ public class AtividadeController {
 			return new ResponseEntity<String>(response.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<String>(response.toString(), HttpStatus.ACCEPTED);
+	}
+
+	@PostMapping("/upload")
+	public void upload(@RequestParam MultipartFile arquivo) {
+		arquivos.salvarArquivo(arquivo);
 	}
 
 }
