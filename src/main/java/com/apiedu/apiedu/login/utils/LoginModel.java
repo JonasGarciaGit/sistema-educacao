@@ -11,6 +11,8 @@ public class LoginModel implements Serializable {
 	
 	@Id
 	private Integer id;
+	private String login;
+	private String senha;
 	
 	public LoginModel() {
 	}
@@ -27,11 +29,30 @@ public class LoginModel implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	@Override
 	public String toString() {
-		return "LoginModel [id=" + id + "]";
+		return "LoginModel [id=" + id + ", login=" + login + ", senha=" + senha + "]";
 	}
+
 	
 	
 }
